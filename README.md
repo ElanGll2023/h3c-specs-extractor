@@ -2,20 +2,31 @@
 
 Extract H3C switch specifications from HTML tables. Handles hardware specs, software features, performance metrics, and protocol compliance.
 
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/ElanGll2023/h3c-specs-extractor)
+[![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/)
+
 ## Features
 
-- ✅ Extract hardware specifications (ports, power, fans, dimensions)
-- ✅ Extract software features (VLAN, routing, security)
-- ✅ Extract performance metrics (MAC table, VLAN table, routing table)
-- ✅ Extract standard protocols (IEEE, RFC)
-- ✅ Handle merged cells (rowspan/colspan)
-- ✅ Auto-fix encoding issues (`Ã` → `×`)
-- ✅ Filter out removable components and power supply models
+- ✅ **Hardware Specs** - Ports, power, fans, dimensions, weight
+- ✅ **Software Features** - VLAN, routing, security features  
+- ✅ **Performance Metrics** - MAC table, VLAN table, routing table, ACL rules
+- ✅ **Protocol Compliance** - IEEE standards, RFC protocols
+- ✅ **POE Support** - POE/POE+/POE++ power and port counts
+- ✅ **Encoding Fix** - Auto-fix `Ã` → `×`, `Âµ` → `µ`, etc.
+- ✅ **Merged Cells** - Handle rowspan/colspan properly
+- ✅ **Smart Filtering** - Skip removable components, power models
+
+## Two Versions Available
+
+| Version | Use Case | Repository |
+|---------|----------|------------|
+| **Python Module** (this repo) | Standalone scripts, automation | [h3c-specs-extractor](https://github.com/ElanGll2023/h3c-specs-extractor) |
+| **Claude Code Skill** | Claude Code integration | [h3c-table-extractor-claude](https://github.com/ElanGll2023/h3c-table-extractor-claude) |
 
 ## Installation
 
 ```bash
-git clone https://github.com/yourusername/h3c-specs-extractor.git
+git clone https://github.com/ElanGll2023/h3c-specs-extractor.git
 cd h3c-specs-extractor
 pip install -r requirements.txt
 ```
@@ -96,6 +107,41 @@ df.to_excel('h3c_switches.xlsx')
 - `POE+端口数(802.3at)` - POE+ ports (30W)
 - `POE++端口数(60W)` - POE++ ports (60W)
 - `POE++端口数(90W)` - POE++ ports (90W)
+
+## Table Types Handled
+
+1. **Multi-model hardware tables** - Standard spec tables with model columns
+2. **POE tables** - Power consumption and POE port distribution  
+3. **Software feature tables** - VLAN, routing, security features
+4. **Performance tables** - MAC, VLAN, routing table sizes
+5. **Protocol tables** - IEEE standards and RFC compliance
+
+## Encoding Fixes
+
+Automatically fixes common encoding issues (mojibake):
+- `Ã` → `×` (multiplication sign)
+- `Âµ` → `µ` (micro sign)
+- `Â°` → `°` (degree sign)
+- `â¤` → `≤` (less than or equal)
+- `â¥` → `≥` (greater than or equal)
+
+## Filtered Content
+
+Automatically skips to keep output clean:
+- Removable power supply models (PSR150-A1-GL, etc.)
+- Board support indicators (是否支持)
+- Filler panel information
+- Transceiver part numbers (unless specifically requested)
+
+## Version
+
+- **Version**: 1.0.0
+- **Last Updated**: 2026-02-10
+- **Python**: 3.8+
+
+## Related Projects
+
+- [h3c-table-extractor-claude](https://github.com/ElanGll2023/h3c-table-extractor-claude) - Claude Code skill version
 
 ## License
 
